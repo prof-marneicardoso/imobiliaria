@@ -1,0 +1,92 @@
+
+/* Fonte */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,700&display=swap');
+
+:root {
+    /* Paleta de cores */
+    --cor-principal: #6c5fff;
+    --cor-01: #f9f9f9;
+    --cor-02: #dfdfdf;
+    --cor-03: #8e8e8e;
+    --cor-04: #595959;
+    --cor-05: #232323;
+}
+
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--cor-02);
+    color: var(--cor-05);
+}
+
+/* ===== Barra de Navegação ===== */
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--cor-04);
+    display: flex;
+    justify-content: space-between;
+    letter-spacing: 0.1rem;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    gap: 0.5rem;
+}
+
+nav a {
+    text-decoration: none;
+    text-transform: uppercase;
+    color: var(--cor-02);
+    font-weight: 700;
+    padding: 0.5rem;
+    transition: 0.5s;
+}
+
+nav a:hover {
+    color: var(--cor-03);
+}
+
+.logo {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+/* ===== Cabeçalho da página ===== */
+header {
+    height: 20rem;
+    margin-top: 3.5rem;
+    background-color: var(--cor-03);
+}
+
+/* ===== Sections ===== */
+section {
+    min-height: 80vh;
+    padding: 5rem 2rem;
+
+    border: solid 2px red; /* TESTE */
+}
+
+
+/* ===== Footer ===== */
+footer {
+    min-height: 16rem;
+    background-color: var(--cor-05);
+    color: var(--cor-03);
+    padding: 2rem;
+}
