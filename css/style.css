@@ -82,6 +82,27 @@ section {
     border: solid 2px red; /* TESTE */
 }
 
+/* ===== Card do Imóvel ===== */
+#imoveis {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 1rem;
+}
+
+.imovel {
+    
+    border: solid 1px #0066ff; /* TESTE */
+}
+
+.foto {
+    height: 14rem;
+    
+    border: solid 1px #1ddb00; /* TESTE */
+}
+
+.foto img {
+    height: 100%;
+}
 
 /* ===== Footer ===== */
 footer {
