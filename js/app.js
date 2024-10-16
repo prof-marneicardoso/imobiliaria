@@ -16,7 +16,7 @@ fetch(urlAPI)
         }
     })
     .catch((erro) => {
-        console.error("Erro", erro);
+        console.error("Erro", erdadosro);
         alert("Não foi possível carregar os dados");
     });
 
@@ -27,6 +27,7 @@ function criarCardImoveis(listaImoveis) {
 
         // Cria o "card" do imóvel
         const cardImovel = document.createElement("article");
+        cardImovel.setAttribute('id', imovel.id);
         cardImovel.classList.add("imovel");
         document.querySelector("#imoveis").appendChild(cardImovel);
 
