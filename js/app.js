@@ -10,7 +10,7 @@ const listaImoveis = [
         quartos: 3,
         tipo: 'apartamento', // casa, terreno
         localizacao: 'Santos Dummont, Papicu',
-        mapa: 'link do maps',
+        mapa: "<iframe src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3981.3752203335343!2d-38.52586952782257!3d-3.728109443164852!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7c74881b09b88ef%3A0xe6f7c3f410959f98!2sAv.%20Santos%20Dumont!5e0!3m2!1spt-BR!2sbr!4v1729100381171!5m2!1spt-BR!2sbr' width='600' height='450' style='border:0;' allowfullscreen='' loading='lazy' referrerpolicy='no-referrer-when-downgrade'></iframe>",
         venda_aluguel: 'venda', // aluguel
         finalidade: 'residencial', // comercial
         fotos: [
