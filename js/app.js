@@ -16,7 +16,7 @@ fetch(urlAPI)
         }
     })
     .catch((erro) => {
-        console.error("Erro", erdadosro);
+        console.error("Erro", erro);
         alert("Não foi possível carregar os dados");
     });
 
@@ -28,6 +28,7 @@ function criarCardImoveis(listaImoveis) {
         // Cria o "card" do imóvel
         const cardImovel = document.createElement("article");
         cardImovel.setAttribute('id', imovel.id);
+        cardImovel.setAttribute('onclick', 'mostrarImovel(this.id)');
         cardImovel.classList.add("imovel");
         document.querySelector("#imoveis").appendChild(cardImovel);
 
@@ -83,7 +84,7 @@ function criarCardImoveis(listaImoveis) {
 
         const btnExcluir = document.createElement('button');
         btnExcluir.setAttribute('id', imovel.id);
-        btnExcluir.setAttribute('onclick', 'excluirImovel(this)');
+        btnExcluir.setAttribute('onclick', 'excluirImovel(this.id)');
         btnExcluir.innerHTML = '🗑️';
         divDados.appendChild(btnExcluir);
     });
@@ -95,7 +96,7 @@ function criarCardImoveis(listaImoveis) {
     - Para fazer login no sistema, adicione /admin na URL.
     Exemplo: http://127.0.0.1:5500/admin
 */
-function excluirImovel(imovel) {
+function excluirImovel(id) {
     // Verifica se há usuário Logado no Sistema
     const usuario = JSON.parse(localStorage.getItem('usuarios')) || [];
 
@@ -105,11 +106,35 @@ function excluirImovel(imovel) {
         // Early return. (retorno precoce/antecipado)
     }
 
-    fetch(`${urlAPI}/${imovel.id}`, {
+    fetch(`${urlAPI}/${id}`, {
         method: 'DELETE'
     })
         .then(() => {
             location.reload();
+        })
+        .catch(erro => {
+            console.error('Erro: ', erro); // LOG
+        });
+}
+
+// ===== Abre as informações numa nova página ===== //
+function mostrarImovel(id) {
+    localStorage.setItem('imovel', id);
+    open('./imovel.html');
+    // console.log(imovel.id); // LOG
+}
+
+const idImovel = document.querySelector('#imovel');
+
+if (idImovel != undefined) {
+    const id = JSON.parse(localStorage.getItem('imovel'));
+
+    fetch(`${urlAPI}/${id}`, {
+        method: 'GET'
+    })
+        .then(response => response.json())
+        .then((data) => {
+            console.log(data); // LOG
         })
         .catch(erro => {
             console.error('Erro: ', erro); // LOG
