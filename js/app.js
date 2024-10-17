@@ -80,5 +80,23 @@ function criarCardImoveis(listaImoveis) {
             currency: "BRL",
         })}`;
         divDados.appendChild(divValor);
+
+        const btnExcluir = document.createElement('button');
+        btnExcluir.setAttribute('id', imovel.id);
+        btnExcluir.setAttribute('onclick', 'excluirImovel(this)');
+        btnExcluir.innerHTML = '🗑️';
+        divDados.appendChild(btnExcluir);
     });
+}
+
+function excluirImovel(imovel) {
+    fetch(`${urlAPI}/${imovel.id}`, {
+        method: 'DELETE'
+    })
+        .then(() => {
+            location.reload();
+        })
+        .catch(erro => {
+            console.error('Erro: ', erro); // LOG
+        });
 }
