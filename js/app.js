@@ -89,7 +89,22 @@ function criarCardImoveis(listaImoveis) {
     });
 }
 
+/*
+    - Se não houver usuário "logado" no sistema, não permite que exclua as postagens (imóveis).
+
+    - Para fazer login no sistema, adicione /admin na URL.
+    Exemplo: http://127.0.0.1:5500/admin
+*/
 function excluirImovel(imovel) {
+    // Verifica se há usuário Logado no Sistema
+    const usuario = JSON.parse(localStorage.getItem('usuarios')) || [];
+
+    if (usuario.length == 0) {
+        alert("Ação não permitida, faça Login no sistema");
+        return;
+        // Early return. (retorno precoce/antecipado)
+    }
+
     fetch(`${urlAPI}/${imovel.id}`, {
         method: 'DELETE'
     })
