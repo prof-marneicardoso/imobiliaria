@@ -1,18 +1,23 @@
 // Link do "Banco de Dados" online
 const urlAPI = "https://66a29be8967c89168f20a323.mockapi.io/api/users";
 
+// Lista de imóveis (Global)
+let listaImoveis = [];
+
 // Acessa a API com os dados
 fetch(urlAPI)
     // Retorna os dados encontrados e converte para JSON
     .then(resultado => resultado.json())
 
     // Manipula os dados retornados
-    .then(listaImoveis => {
-        if (listaImoveis.length == 0) {
+    .then(imoveisAPI => {
+        if (imoveisAPI.length == 0) {
             document.querySelector("#imoveis").innerHTML = 'Não há imóveis cadastrados';
-        
+            
         } else {
-            criarCardImoveis(listaImoveis);
+            // Guarda os dados retornados da API
+            listaImoveis = imoveisAPI;
+            criarCardImoveis();
         }
     })
     .catch((erro) => {
@@ -20,10 +25,9 @@ fetch(urlAPI)
         alert("Não foi possível carregar os dados");
     });
 
-function criarCardImoveis(listaImoveis) {
+function criarCardImoveis() {
     // Percorre a Lista de Imóveis
     listaImoveis.forEach(imovel => {
-        // console.log(imovel);
 
         // Cria o "card" do imóvel
         const cardImovel = document.createElement("article");
@@ -59,6 +63,7 @@ function criarCardImoveis(listaImoveis) {
         divInfo.classList.add("info");
         cardImovel.appendChild(divInfo); // Adiciona a info no card
 
+        // Div usada para alinhar os elementos em flex column
         const divDados = document.createElement("div");
         divInfo.appendChild(divDados);
 
@@ -107,7 +112,7 @@ function excluirImovel(id) {
     }
 
     fetch(`${urlAPI}/${id}`, {
-        method: 'DELETE'
+        method: 'DELETE' // verbo HTTP
     })
         .then(() => {
             location.reload();
@@ -119,7 +124,8 @@ function excluirImovel(id) {
 
 // ===== Abre as informações numa nova página ===== //
 function mostrarImovel(id) {
-    localStorage.setItem('imovel', id);
+    const imovelSelecionado = listaImoveis.find(imovel => imovel.id == id);
+
+    localStorage.setItem('imovel', JSON.stringify(imovelSelecionado));
     open('./imovel.html');
-    // console.log(imovel.id); // LOG
 }
