@@ -86,6 +86,11 @@ section {
     border: solid 2px red; /* TESTE */
 }
 
+main {
+    /* min-height: 20rem; */
+    padding: 8rem;
+}
+
 /* ===== Estrutura dos Cards dos Imóveis ===== */
 #imoveis {
     margin: auto;
@@ -118,7 +123,15 @@ section {
     width: 100%;
 }
 
-.foto img {
+.foto-imovel {
+    height: 100%;
+    width: 100%;
+    margin: 1rem auto;
+    border: solid 0.8rem var(--cor-01);
+    border-radius: 0.5rem;
+}
+
+.foto img, .foto-imovel img {
     height: 100%;
     width: 100%;
 }
@@ -187,4 +200,17 @@ form button {
 form button:hover {
     cursor: pointer;
     filter: brightness(1.1);
+}
+
+/* Mapa */
+.mapa {
+    /* width: 90%; */
+    height: 100vh;
+    margin: auto;
+    margin-top: 2rem;
+}
+
+.mapa iframe {
+    width: 100%;
+    height: 100%;
 }

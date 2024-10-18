@@ -26,13 +26,23 @@ fetch(urlAPI)
     });
 
 function criarCardImoveis() {
+    // Cria o botão apenas se estiver logado
+    const login = verificarLogin();
+
+    console.log(login);
+
     // Percorre a Lista de Imóveis
     listaImoveis.forEach(imovel => {
 
         // Cria o "card" do imóvel
         const cardImovel = document.createElement("article");
         cardImovel.setAttribute('id', imovel.id);
-        cardImovel.setAttribute('onclick', 'mostrarImovel(this.id)');
+
+        // Mostra o imóvel apenas para não admin
+        if (login.length == 0) {
+            cardImovel.setAttribute('onclick', 'mostrarImovel(this.id)');
+        }
+
         cardImovel.classList.add("imovel");
         document.querySelector("#imoveis").appendChild(cardImovel);
 
@@ -87,11 +97,13 @@ function criarCardImoveis() {
         })}`;
         divDados.appendChild(divValor);
 
-        const btnExcluir = document.createElement('button');
-        btnExcluir.setAttribute('id', imovel.id);
-        btnExcluir.setAttribute('onclick', 'excluirImovel(this.id)');
-        btnExcluir.innerHTML = '🗑️';
-        divDados.appendChild(btnExcluir);
+        if (login.length > 0) {
+            const btnExcluir = document.createElement('button');
+            btnExcluir.setAttribute('id', imovel.id);
+            btnExcluir.setAttribute('onclick', 'excluirImovel(this.id)');
+            btnExcluir.innerHTML = '🗑️';
+            divDados.appendChild(btnExcluir);
+        }
     });
 }
 
@@ -103,23 +115,28 @@ function criarCardImoveis() {
 */
 function excluirImovel(id) {
     // Verifica se há usuário Logado no Sistema
-    const usuario = JSON.parse(localStorage.getItem('usuarios')) || [];
+    const login = verificarLogin();
 
-    if (usuario.length == 0) {
+    if (login.length == 0) {
         alert("Ação não permitida, faça Login no sistema");
         return;
         // Early return. (retorno precoce/antecipado)
     }
 
-    fetch(`${urlAPI}/${id}`, {
-        method: 'DELETE' // verbo HTTP
-    })
-        .then(() => {
-            location.reload();
+    const confirma = confirm("Confirma exclusão?");
+
+    // if (confirma == true) {
+    if (confirma) {
+        fetch(`${urlAPI}/${id}`, {
+            method: 'DELETE' // verbo HTTP
         })
-        .catch(erro => {
-            console.error('Erro: ', erro); // LOG
-        });
+            .then(() => {
+                location.reload();
+            })
+            .catch(erro => {
+                console.error('Erro: ', erro); // LOG
+            });
+    }
 }
 
 // ===== Abre as informações numa nova página ===== //
@@ -128,4 +145,9 @@ function mostrarImovel(id) {
 
     localStorage.setItem('imovel', JSON.stringify(imovelSelecionado));
     open('./imovel.html');
+}
+
+// Verifica se o usuário está logado
+function verificarLogin() {
+    return JSON.parse(localStorage.getItem('usuarios')) || [];
 }
